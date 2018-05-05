@@ -1,0 +1,15 @@
+@model ActivityModel
+
+<a href='@Url.Action("Index", "Logs")'><< Back to Logs</a>
+
+<h1>New Activity</h1>
+
+<form action='@Url.Action("Create")' method="POST">
+    <input type="hidden" name="logId" value="@Model.LogId" />
+    <div class="form-group">
+        <input class="form-control" type="text" name="activity.name" placeholder="Activity Name"/>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Save</button>
+    </div>
+</form>

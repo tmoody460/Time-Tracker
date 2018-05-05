@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\TimeTracker.Utilities\TimeTracker.Utilities.csproj" />
+    <ProjectReference Include="..\TimeTracker.Accessors\TimeTracker.Accessors.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,39 @@
+@model List<LogWithActivity>
+@using System
+@using System.Collections.Generic
+@using TimeTracker.Managers.Models
+@{
+    var total = TimeSpan.Zero;
+}
+<a href='@Url.Action("Index", "Logs")'><< Back to Logs</a>
+
+<h1>Logs</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Activity</th>
+            <th>Time Duration</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var log in Model){
+            var end = log.End == DateTime.MinValue ? DateTime.Now : log.End;
+            var duration = new TimeSpan((end - log.Start).Ticks);
+            <tr>
+                <td>@log.Activity?.Name</td>
+                <td>@duration.Hours hours and @duration.Minutes minutes and @duration.Seconds seconds</td>
+                <td>@log.Start.ToString("hh:mm tt")</td>
+                <td>@log.End.ToString("hh:mm tt")</td>
+            </tr>
+            total += duration;
+        }
+    </tbody>
+</table>
+
+<div>
+    <h2>Total Time:</h2>
+    <span>@total.Hours:@total.Minutes:@total.Seconds</span>
+</div>

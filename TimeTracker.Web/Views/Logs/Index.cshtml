@@ -1,0 +1,66 @@
+@model LogWithActivity
+@using TimeTracker.Managers.Models
+@{
+    ViewBag.Title = "Logs";
+}
+
+<div>
+    <h2>Current Log</h2>
+    @{
+        if(Model == null){
+            <p>No Current Log</p>
+        }else{
+            <p><strong>Current Log:</strong> @Model.Id</p>
+            <p><strong>Start Time:</strong> @Model.Start</p>
+            <p><strong>Time Elapsed:</strong> <span id="time-elapsed"></span></p>
+            if(Model.Activity != null)
+            {
+                <p><strong>Activity:</strong> @Model.Activity.Name</p>
+                <a href='@Url.Action("Edit", "Activities", new { id = Model.Activity.Id })' class="btn btn-default">Edit Activity</a>                
+            }
+            else
+            {
+                <a href='@Url.Action("Create", "Activities", new { logId = Model.Id })' class="btn btn-default">Add New Activity</a>
+            }
+            <a href='@Url.Action("Finalize", "Logs", new { logId = Model.Id })' class="btn btn-default">Finalize Log</a>
+        }
+    }
+</div>
+
+<div>
+    <h2>Create Log</h2>
+    <form action='@Url.Action("Create", new { createActivity = false})' method="POST">
+        <div class="form-group">
+            <button class="btn btn-default" type="submit">
+                Quick Log
+            </button>
+        </div>
+    </form>
+    <form action='@Url.Action("Create", new { createActivity = true})' method="POST">
+        <div class="form-group">
+            <button class="btn btn-default" type="submit">
+                Full Log
+            </button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <h2>View Logs</h2>
+    <a href='@Url.Action("List", "Logs", new { date = DateTime.Now.Date })' class="btn btn-default">View Today's Logs</a>
+    <a href='@Url.Action("List", "Logs", new { date = DateTime.Now.AddDays(-1).Date })' class="btn btn-default">View Yesterday's Logs</a>
+</div>
+
+@if(Model != null){
+    @section Scripts {
+        <script>
+            var currentLogDate = "@Html.Raw(Model.Start)";
+            $(function(){ 
+                window.setInterval(function(){
+                    var timeSince = moment.utc(moment().diff(moment(currentLogDate))).format("HH:mm:ss");
+                    $("#time-elapsed").text(timeSince);
+                }, 1000);
+            });
+        </script>
+    }
+}

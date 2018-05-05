@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\TimeTracker.Accessors\TimeTracker.Accessors.csproj"/>
+    <ProjectReference Include="..\TimeTracker.Utilities\TimeTracker.Utilities.csproj"/>
+    <ProjectReference Include="..\TimeTracker.Engines\TimeTracker.Engines.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2"/>
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+</Project>
